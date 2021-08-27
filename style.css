@@ -1,0 +1,182 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.container {
+  justify-content: center;
+  text-align: center;
+
+  /* height: 100vh; */
+}
+.cross {
+  display: none;
+}
+#dark,
+#light {
+  cursor: pointer;
+}
+.header {
+  background-image: url("images/bg-desktop-light.jpg");
+  height: 7cm;
+}
+.title {
+  width: 380px;
+  display: flex;
+  justify-content: space-between;
+  /* margin-left: 35%; */
+  padding-top: 2cm;
+  color: white;
+  padding-bottom: 30px;
+}
+.title img {
+  height: 15px;
+}
+.input input[type="text"] {
+  width: 100%;
+  height: 1.1cm;
+  border: none;
+  border-radius: 4px;
+  /* margin-top: -10px; */
+}
+.input input[type="text"]:focus {
+  outline: none;
+}
+.todo_list {
+  width: 10.2cm;
+  margin-top: -1cm;
+  /* box-shadow: 2px 2px 2px 2px rgb(196, 195, 195); */
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #dddde3;
+}
+.item:hover .cross {
+  display: block;
+}
+
+.text {
+  display: flex;
+  /* padding: 10px; */
+}
+.text p {
+  margin-left: 10px;
+}
+.item img {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+.footer {
+  padding: 10px;
+  width: 10.2cm;
+}
+footer {
+  margin-top: 2cm;
+}
+footer .attribution {
+  margin-top: 3cm;
+}
+.completed {
+  text-decoration: line-through;
+  color: hsl(228deg 4% 75%);
+}
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+}
+.chacked {
+  width: 20px;
+  height: 20px;
+  background-color: hsl(235, 19%, 35%);
+  border-radius: 50%;
+}
+.hide {
+  display: none;
+}
+.input {
+  display: flex;
+
+  width: 10.2cm;
+  padding-left: 10px;
+}
+
+.rd {
+  margin-top: 12px;
+  margin-right: 15px;
+}
+.footer {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+span {
+  cursor: pointer;
+}
+.count {
+  padding-right: 40px;
+}
+.clear {
+  padding-left: 40px;
+}
+footer {
+  padding: 40px;
+}
+.light {
+  background-color: hsl(0deg 0% 98%);
+  color: hsl(228deg 4% 75%);
+}
+
+.light .container .header .input {
+  background-color: white;
+}
+.light .container .todo_list {
+  background-color: hsl(0, 0%, 100%);
+  color: black;
+}
+.light .container .footer {
+  background-color: white;
+}
+
+.dark {
+  background-color: #181824;
+  color: hsl(228deg 4% 75%);
+}
+.dark .header {
+  background-image: url(images/bg-desktop-dark.jpg);
+}
+
+.dark .container .header .input,
+.dark .container .header .input input {
+  background-color: #25273c;
+  color: hsl(0, 0%, 98%);
+}
+
+.dark .container .todo_list {
+  background-color: #25273c;
+  color: hsl(0, 0%, 98%);
+}
+.dark .container .todo_list .item:hover {
+  color: white;
+}
+.dark .container .footer {
+  background-color: #25273c;
+}
+.dark .container .footer span:hover {
+  color: white;
+}
+
+@media only screen and (max-width: 992px) {
+  .todo_list,
+  .input,
+  .footer,
+  .title {
+    width: 80%;
+  }
+
+  .footer {
+    font-size: 9px;
+  }
+}

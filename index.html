@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Frontend Mentor | Todo app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body id="body" class="light">
+
+  <div class="container">
+    <center>
+      <div class="header">
+        <div class="title">
+          <h1>T O D O</h1><img onclick="switchModel()" id="dark" src="images/icon-moon.svg">
+          <img onclick="switchModel()" id="light" src="images/icon-sun.svg" hidden>
+        </div>
+        <form class="input" method="POST" action="#" onsubmit="return addItem(inputText.value);">
+          <input class='rd ' id='chack' type="radio" onclick="return markAsCompleted()" name="ok">
+          <span onclick="markAsCompleted()" id="chacked" class="rd chacked" style="display: none;"><img
+              src="images/icon-check.svg"></span>
+          <input type="text" id="inputText" placeholder="Write anything todo...." autofocus>
+          </from>
+      </div>
+      <div class="todo_list" id="todos">
+
+      </div>
+      <div class="footer">
+        <div class="count"><span id='number'></span> items left</div>
+        <span onclick="showAllItems()">All</span>
+        <span onclick="showActiveItems()">Active</span>
+        <span onclick="showCompletedItems()">Completed</span>
+        <span class="clear" onclick="clearCompleted()">Clear Completed</span>
+      </div>
+
+      <footer>
+        <div> Drag and drop to reorder list</div>
+
+        <div class="attribution">
+          Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+          Coded by <a href="#">Alain Tresor Uwineza</a>.
+        </div>
+      </footer>
+    </center>
+  </div>
+  <script>
+    var body = document.getElementById('body');
+    var dark = document.getElementById('dark');
+    var light = document.getElementById('light');
+    var todosContainer = document.getElementById('todos');
+    var inputText = document.getElementById('inputText');
+    var number = document.getElementById('number');
+
+    var todos = [{ 'id': 0, 'text': 'work on sunday', 'isCompleted': true }, { 'id': 1, 'text': 'work on u', 'isCompleted': false }];
+
+    var allItems = todos;
+    var activeItems = todos.filter(todo => !todo.isCompleted).length;
+
+    number.innerText = activeItems;
+    var completed = false;
+
+    var isLight = true;
+
+    const switchModel = () => {
+
+      if (isLight) {
+        body.className = "dark";
+        dark.style.display = "none";
+        light.style.display = "block";
+      }
+      else {
+        body.className = "light";
+        light.style.display = "none";
+        dark.style.display = "block";
+      }
+      isLight = !isLight;
+
+    }
+
+    const markAsCompleted = () => {
+      completed = !completed;
+      let chack = document.getElementById('chack');
+      let chacked = document.getElementById('chacked');
+      if (completed) {
+        chack.style.display = 'none';
+        chacked.style.display = 'block';
+      }
+      else {
+        chack.style.display = 'block';
+        chacked.style.display = 'none';
+      }
+      return false;
+    }
+
+    // display function 
+    const display = () => {
+      var items = '';
+      if (!todos.length) {
+        todosContainer.innerHTML = '';
+      }
+      todos.forEach(todo => {
+        items = items + `<div class="item" > <div class="text"><span onclick="complete(${todo.id})" class="${todo.isCompleted ? 'chacked' : 'hide'}"><img src="images/icon-check.svg"></span><input type="radio" class="${todo.isCompleted ? 'hide' : ''}" onchange="complete(${todo.id})" ><p class="${todo.isCompleted ? 'completed' : ''}">${todo.text}</p></div><img onclick="deleteItem(${todo.id})" src="images/icon-cross.svg" class="cross"></div>`;
+        todosContainer.innerHTML = items;
+
+      }
+      )
+    }
+    display();
+
+    // add new item on list 
+    const addItem = (text) => {
+      let id = todos.length + 1;
+      let item = { 'id': id, 'text': text, 'isCompleted': completed };
+      todos.push(item);
+      inputText.value = '';
+      allItems = todos;
+      display()
+      activeItems = todos.filter(todo => !todo.isCompleted).length;
+      number.innerText = activeItems;
+      return false;
+    }
+
+    // delete one item form list 
+    const deleteItem = id => {
+      let newList = todos.filter(todo => todo.id != id);
+      todos = newList;
+      display();
+      allItems = todos;
+      activeItems = todos.filter(todo => !todo.isCompleted).length;
+      number.innerText = activeItems;
+    }
+
+    //mark as complete
+    const complete = i => {
+      for (index = 0; index < todos.length; index++) {
+        if (todos[index].id == i) {
+          todos[index].isCompleted = !todos[index].isCompleted;
+          break;
+        }
+      }
+      allItems = todos;
+      display()
+      activeItems = todos.filter(todo => !todo.isCompleted).length;
+      number.innerText = activeItems;
+    }
+    // to show all items 
+    const showAllItems = () => {
+      todos = allItems;
+      display()
+    }
+    //to show only active items
+    const showActiveItems = () => {
+      todos = allItems;
+      todos = todos.filter(todo => !todo.isCompleted)
+      display()
+    }
+    //to show only completed items
+    const showCompletedItems = () => {
+      todos = allItems;
+      todos = todos.filter(todo => todo.isCompleted)
+      display()
+    }
+
+    // detele all completed items 
+    const clearCompleted = () => {
+      todos = todos.filter(todo => !todo.isCompleted);
+      allItems = todos;
+      display()
+    }
+    // const content = element.innerHTML;
+  </script>
+</body>
+
+</html>
